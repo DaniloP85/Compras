@@ -11,7 +11,8 @@ import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.adapter.ShoppingListAdapter
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
 import br.com.conclusaoandroid.model.Product
-import com.example.mobcompoents.cusomtoast.CustomToast
+import com.example.mobcomponents.customtoast.CustomToast
+
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject

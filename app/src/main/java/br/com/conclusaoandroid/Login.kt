@@ -9,9 +9,8 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.ActivityLoginBinding
+import com.example.mobcomponents.customtoast.CustomToast
 import com.google.firebase.auth.FirebaseAuth
-
-import com.example.mobcompoents.cusomtoast.CustomToast
 
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

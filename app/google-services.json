@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "555405866225",
-    "project_id": "android-fiap-conclusion",
-    "storage_bucket": "android-fiap-conclusion.appspot.com"
+    "project_number": "468264111535",
+    "project_id": "marketplace-v0",
+    "storage_bucket": "marketplace-v0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:555405866225:android:ee7da1524422c5184e6550",
+        "mobilesdk_app_id": "1:468264111535:android:b7a00d4d8ae7785309b35a",
         "android_client_info": {
           "package_name": "br.com.conclusaoandroid"
         }
       },
       "oauth_client": [
         {
-          "client_id": "555405866225-e3kom5ll6l0ua9nujq1eo48e91stn06i.apps.googleusercontent.com",
+          "client_id": "468264111535-ef0944stna92rkb8rf45ras8knumije9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDp3JL0xFjvve5UQnFPR7DNccKKKFawQ-c"
+          "current_key": "AIzaSyBlg9EMuxtRHQkz8lR0yKxXi-VDLVm5cPE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "555405866225-e3kom5ll6l0ua9nujq1eo48e91stn06i.apps.googleusercontent.com",
+              "client_id": "468264111535-ef0944stna92rkb8rf45ras8knumije9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
