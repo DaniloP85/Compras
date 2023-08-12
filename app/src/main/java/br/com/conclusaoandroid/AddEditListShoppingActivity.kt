@@ -12,7 +12,7 @@ import br.com.conclusaoandroid.adapter.ShoppingListAdapter
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
 import br.com.conclusaoandroid.model.Product
 import com.example.mobcomponents.customtoast.CustomToast
-
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -104,7 +104,6 @@ class AddEditListShoppingActivity : AppCompatActivity() {
             .document(documentId)
             .collection("products")
             .orderBy("description", Query.Direction.ASCENDING)
-            .limit(300)
     }
 
     private fun getValuesFromBundle() {
@@ -187,6 +186,7 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         val product = hashMapOf(
             "description" to description,
             "value" to value,
+            "date" to Timestamp.now(),
             "unit" to unit
         )
 

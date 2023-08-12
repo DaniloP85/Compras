@@ -15,6 +15,7 @@ import br.com.conclusaoandroid.model.Shopping
 import com.example.mobcomponents.customtoast.CustomToast
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         val shoppingQuery = Firebase.firestore
             .collection("shopping")
             .whereEqualTo("userId", auth.uid)
-            .limit(50)
+            .orderBy("date", Query.Direction.DESCENDING)
 
         userId = auth.uid.toString()
 
