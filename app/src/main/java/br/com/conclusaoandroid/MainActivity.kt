@@ -9,7 +9,10 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import br.com.conclusaoandroid.adapter.ShoppingAdapter
+import br.com.conclusaoandroid.common.SwipeToDeleteCallback
 import br.com.conclusaoandroid.databinding.ActivityMainBinding
 import br.com.conclusaoandroid.model.Shopping
 import com.example.mobcomponents.customtoast.CustomToast
@@ -17,6 +20,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 
@@ -58,7 +62,6 @@ class MainActivity : AppCompatActivity() {
             { shopping -> adapterOnClick(shopping) },
             { shopping -> adapterOnClickEditShopping(shopping) }) {
             override fun onDataChanged() {
-
                 if (itemCount == 0) {
                     binding.rltHome.visibility = View.GONE
                     binding.rltEmptyState.visibility = View.VISIBLE
@@ -71,6 +74,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupListener()
+
+        val swipeHandler = object : SwipeToDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val snapshot = shoppingAdapter.getSnapshot(viewHolder.adapterPosition)
+                snapshot.toObject<Shopping>()?.let {
+
+                    Firebase
+                        .firestore
+                        .collection(FirebaseAuth.getInstance().uid.toString())
+                        .document(snapshot.id)
+                        .delete()
+                        .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted -> ${snapshot.id}") }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                }
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerShopping)
+
     }
 
     private fun adapterOnClickEditShopping(shopping: Shopping) {

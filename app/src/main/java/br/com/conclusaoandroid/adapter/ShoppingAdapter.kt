@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.conclusaoandroid.databinding.ShoppingItemBinding
 import br.com.conclusaoandroid.model.Shopping
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -55,38 +52,19 @@ open class ShoppingAdapter(
             format.setCurrency(Currency.getInstance("BRL")).toString()
             binding.value.text = format.format(shopping.total)
 
-            binding.removeShopping.setOnClickListener {
-                removeShopping(snapshotId)
-            }
-
             binding.editShopping.setOnClickListener {
                 currentShopping?.let {
                     onClickEditShopping(shopping)
                 }
             }
         }
-
-        @SuppressLint("LongLogTag")
-        private fun removeShopping(snapshotId: String){
-
-            Firebase
-                .firestore
-                .collection(FirebaseAuth.getInstance().uid.toString())
-                .document(snapshotId)
-                .delete()
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
-                .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
-
-        }
-
-        companion object {
-            private const val TAG = "ShoppingAdapter.ViewHolder.bind"
-        }
     }
 
+    @SuppressLint("LongLogTag")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val snapshot = getSnapshot(position)
         snapshot.toObject<Shopping>()?.let {
+            Log.d("ShoppingAdapter.ViewHolder.bind", "DocumentSnapshot successfully, ${snapshot.id}")
             holder.bind(it, snapshot.id)
         }
     }

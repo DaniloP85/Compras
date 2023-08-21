@@ -49,14 +49,9 @@ abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var query:
     }
 
     fun setQuery(query: Query) {
-        // Stop listening
         stopListening()
-
-        // Clear existing data
         snapshots.clear()
         notifyDataSetChanged()
-
-        // Listen to new query
         this.query = query
         startListening()
     }
@@ -75,7 +70,7 @@ abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var query:
         return snapshots
     }
 
-    protected fun getSnapshot(index: Int): DocumentSnapshot {
+    fun getSnapshot(index: Int): DocumentSnapshot {
         return snapshots[index]
     }
 
