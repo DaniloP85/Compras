@@ -48,8 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val shoppingQuery = Firebase.firestore
-            .collection("shopping")
-            .whereEqualTo("userId", auth.uid)
+            .collection(auth.uid.toString())
             .orderBy("date", Query.Direction.DESCENDING)
 
         userId = auth.uid.toString()
@@ -132,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateShopping(nameMarkerPlace: String){
         Firebase.firestore
-            .collection("shopping")
+            .collection(auth.uid.toString())
             .document(documentIdUpdate)
             .update("marketplace", nameMarkerPlace)
             .addOnSuccessListener {
@@ -144,7 +143,6 @@ class MainActivity : AppCompatActivity() {
     private fun addShopping(marketplace:String){
 
         val shopping = hashMapOf(
-            "userId" to userId,
             "marketplace" to marketplace,
             "date" to Timestamp.now(),
             "total" to 0
@@ -152,7 +150,7 @@ class MainActivity : AppCompatActivity() {
 
         Firebase
             .firestore
-            .collection("shopping")
+            .collection(auth.uid.toString())
             .add(shopping)
             .addOnSuccessListener { documentReference ->
                 CustomToast.success( this, getString(R.string.registered_successfully) )

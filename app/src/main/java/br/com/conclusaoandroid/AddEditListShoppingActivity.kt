@@ -13,6 +13,7 @@ import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
 import br.com.conclusaoandroid.model.Product
 import com.example.mobcomponents.customtoast.CustomToast
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -100,10 +101,10 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
     private fun queryShoppingFromFirebase(): Query {
         return Firebase.firestore
-            .collection("shopping")
+            .collection(FirebaseAuth.getInstance().uid.toString())
             .document(documentId)
             .collection("products")
-            .orderBy("description", Query.Direction.ASCENDING)
+            .orderBy("timestamp", Query.Direction.DESCENDING)
     }
 
     private fun getValuesFromBundle() {
@@ -144,13 +145,18 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
                 val unitText = editTextUnit.text.toString()
 
+                val product = HashMap<String, Any>()
+                product["description"] = editTextDescription.text.toString()
+                product["value"] = editTextValue.text.toString().toDouble()
+                product["timestamp"] = Timestamp.now()
+                product["unit"] = unitText.toInt()
 
                 Firebase.firestore
-                    .collection("shopping")
+                    .collection(FirebaseAuth.getInstance().uid.toString())
                     .document(documentId)
                     .collection("products")
                     .document(productCurrent.documentId.toString())
-                    .update("description", editTextDescription.text.toString(),"value", editTextValue.text.toString().toDouble(), "unit", unitText.toInt())
+                    .update(product)
                     .addOnSuccessListener {
                         Log.d(TAG,":)")
                         CustomToast.success( this, getString(R.string.registered_successfully) )
@@ -171,7 +177,7 @@ class AddEditListShoppingActivity : AppCompatActivity() {
     private fun updateTotalShopping(value: Double) {
         Firebase
             .firestore
-            .collection("shopping")
+            .collection(FirebaseAuth.getInstance().uid.toString())
             .document(documentId)
             .update("total", value)
             .addOnSuccessListener {
@@ -186,12 +192,12 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         val product = hashMapOf(
             "description" to description,
             "value" to value,
-            "date" to Timestamp.now(),
+            "timestamp" to Timestamp.now(),
             "unit" to unit
         )
 
         Firebase.firestore
-            .collection("shopping")
+            .collection(FirebaseAuth.getInstance().uid.toString())
             .document(documentId)
             .collection("products")
             .add(product)

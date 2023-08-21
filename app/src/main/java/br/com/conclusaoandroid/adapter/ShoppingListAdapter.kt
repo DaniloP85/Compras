@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.conclusaoandroid.databinding.ShoppingListItemBinding
 import br.com.conclusaoandroid.model.Product
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -53,7 +54,7 @@ open class ShoppingListAdapter(query: Query, private val documentIdFather: Strin
 
             Firebase
                 .firestore
-                .collection("shopping")
+                .collection(FirebaseAuth.getInstance().uid.toString())
                 .document(idFather)
                 .collection("products")
                 .document(snapshotId)

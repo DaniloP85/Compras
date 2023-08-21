@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.conclusaoandroid.databinding.ShoppingItemBinding
 import br.com.conclusaoandroid.model.Shopping
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -55,7 +56,7 @@ open class ShoppingAdapter(
             binding.value.text = format.format(shopping.total)
 
             binding.removeShopping.setOnClickListener {
-                removeShopping(shopping, snapshotId)
+                removeShopping(snapshotId)
             }
 
             binding.editShopping.setOnClickListener {
@@ -66,16 +67,16 @@ open class ShoppingAdapter(
         }
 
         @SuppressLint("LongLogTag")
-        private fun removeShopping(shopping: Shopping, snapshotId: String){
+        private fun removeShopping(snapshotId: String){
 
             Firebase
                 .firestore
-                .collection("shopping")
+                .collection(FirebaseAuth.getInstance().uid.toString())
                 .document(snapshotId)
-                .update("userId", "${shopping.userId}_99999")
-                .addOnSuccessListener {
-                    Log.d(TAG, "DocumentSnapshot successfully updated!")
-                }.addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+                .delete()
+                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+
         }
 
         companion object {
