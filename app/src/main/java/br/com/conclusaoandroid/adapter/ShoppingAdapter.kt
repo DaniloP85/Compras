@@ -15,13 +15,11 @@ import java.util.*
 
 open class ShoppingAdapter(
     query: Query,
-    private val onClick: (Shopping) -> Unit,
-    private val onClickEditShopping: (Shopping) -> Unit) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
+    private val onClick: (Shopping) -> Unit) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
 
     class ViewHolder(
         private val binding: ShoppingItemBinding,
-        val onClick: (Shopping) -> Unit,
-        val onClickEditShopping: (Shopping) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+        val onClick: (Shopping) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
         private var currentShopping: Shopping? = null
 
@@ -52,11 +50,11 @@ open class ShoppingAdapter(
             format.setCurrency(Currency.getInstance("BRL")).toString()
             binding.value.text = format.format(shopping.total)
 
-            binding.editShopping.setOnClickListener {
-                currentShopping?.let {
-                    onClickEditShopping(shopping)
-                }
-            }
+//            binding.editShopping.setOnClickListener {
+//                currentShopping?.let {
+//                    onClickEditShopping(shopping)
+//                }
+//            }
         }
     }
 
@@ -71,6 +69,6 @@ open class ShoppingAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ShoppingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(view, onClick, onClickEditShopping)
+        return ViewHolder(view, onClick)
     }
 }

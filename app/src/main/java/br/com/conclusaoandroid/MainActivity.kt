@@ -59,8 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         shoppingAdapter = object : ShoppingAdapter(
             shoppingQuery,
-            { shopping -> adapterOnClick(shopping) },
-            { shopping -> adapterOnClickEditShopping(shopping) }) {
+            { shopping -> adapterOnClick(shopping) }) {
             override fun onDataChanged() {
                 if (itemCount == 0) {
                     binding.rltHome.visibility = View.GONE
@@ -95,12 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun adapterOnClickEditShopping(shopping: Shopping) {
-        documentIdUpdate = shopping.documentId.toString()
-        alert(shopping.marketplace.toString(), getString(R.string.update_register), getString(R.string.edit)) { name ->
-            updateShopping(name)
-        }
-    }
+
 
     @SuppressLint("SimpleDateFormat")
     private fun adapterOnClick(shopping: Shopping) {
@@ -151,6 +145,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+/*
+    private fun adapterOnClickEditShopping(shopping: Shopping) {
+        documentIdUpdate = shopping.documentId.toString()
+        alert(shopping.marketplace.toString(), getString(R.string.update_register), getString(R.string.edit)) { name ->
+            updateShopping(name)
+
+            println("Danilo")
+        }
+    }
+        //TODO: levar esse bloco de atualização para a lista de produtdos
+
     private fun updateShopping(nameMarkerPlace: String){
         Firebase.firestore
             .collection(auth.uid.toString())
@@ -161,6 +166,7 @@ class MainActivity : AppCompatActivity() {
                 CustomToast.success( this, getString(R.string.registered_successfully) )
             }.addOnFailureListener { e ->  Log.d(TAG,":( :: $e") }
     }
+*/
 
     private fun addShopping(marketplace:String){
 

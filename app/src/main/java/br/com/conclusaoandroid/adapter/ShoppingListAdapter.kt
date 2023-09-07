@@ -15,9 +15,15 @@ import com.google.firebase.ktx.Firebase
 import java.text.NumberFormat
 import java.util.*
 
-open class ShoppingListAdapter(query: Query, private val documentIdFather: String, private val onClick: (Product) -> Unit) : FirestoreAdapter<ShoppingListAdapter.ShoppingListViewHolder>(query) {
+open class ShoppingListAdapter(
+    query: Query,
+    private val documentIdFather: String,
+    private val onClick: (Product) -> Unit) : FirestoreAdapter<ShoppingListAdapter.ShoppingListViewHolder>(query) {
 
-    class ShoppingListViewHolder(private val binding: ShoppingListItemBinding, private val documentIdFather: String, val onClick: (Product) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class ShoppingListViewHolder(
+        private val binding: ShoppingListItemBinding,
+        private val documentIdFather: String,
+        val onClick: (Product) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
         private var currentProduct: Product? = null
 

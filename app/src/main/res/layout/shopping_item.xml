@@ -18,7 +18,7 @@
             android:baselineAligned="false">
 
             <LinearLayout
-                android:layout_width="@dimen/width_150_dp"
+                android:layout_width="@dimen/width_180_dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -43,6 +43,7 @@
                 android:layout_width="@dimen/width_32_dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_marginRight="@dimen/margin_10_dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -55,28 +56,6 @@
                     android:textStyle="bold"
                     tools:ignore="RtlHardcoded" />
             </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="@dimen/width_32_dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center|end"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/editShopping"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:src="@drawable/ic_baseline_edit_24" />
-                </LinearLayout>
-            </RelativeLayout>
-
         </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider

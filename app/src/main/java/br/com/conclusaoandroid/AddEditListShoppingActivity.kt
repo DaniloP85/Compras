@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.adapter.ShoppingListAdapter
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
 import br.com.conclusaoandroid.model.Product
+import br.com.conclusaoandroid.model.Shopping
 import com.example.mobcomponents.customtoast.CustomToast
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -115,9 +116,15 @@ class AddEditListShoppingActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
-        binding.toolbar.getTitleSetup("$marketplace $marketDate")
+        binding.toolbar.getTitleSetup("$marketplace")
         binding.toolbar.actionToBack { goToBackHome() }
     }
+
+/*    private fun adapterOnClickEditShopping() {
+            println("Danilo ${documentId}")
+
+            //TODO: Preparar para atulizar o nome do mercado
+    }*/
 
     private fun goToBackHome() {
         val intent = Intent(this, MainActivity::class.java)
@@ -183,7 +190,6 @@ class AddEditListShoppingActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Log.d(TAG,":)")
             }.addOnFailureListener { e -> Log.d(TAG, ":( :: $e") }
-
     }
 
     @SuppressLint("LongLogTag")
